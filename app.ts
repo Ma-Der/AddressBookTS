@@ -37,11 +37,11 @@ const man = new Contact(
   addressOne.addContact(man2);
   //addressOne.editContact(man, 'surname', 'Trzeciak');
   addressOne.addGroup(groupOne);
-  console.log(addressOne);
+  //console.log(addressOne);
   addressOne.deleteContact(man1);
   
   
-  //addressOne.searchContact('ford');
+  addressOne.searchContact('har');
   //addressOne.editGroup(groupOne, 'Not so best at all.');
   //addressOne.deleteGroup(groupOne);
   console.log(addressOne);

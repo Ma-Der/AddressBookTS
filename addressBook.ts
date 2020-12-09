@@ -1,30 +1,33 @@
 import { Validation } from './Validation';
-import { Contact } from './Contact';
-import { Group } from './Group';
+import { IContact } from './Contact';
+import { IGroup } from './Group';
 
-export class AddressBook {
+interface IAddressBook {
+  contactList: IContact[];
+  groupList: IGroup[];
+}
+
+export class AddressBook implements IAddressBook {
   
-  private contactList: Contact[];
-  private groupList: Group[];
+  contactList: IContact[];
+  groupList: IGroup[];
 
   constructor() {
     this.contactList = [];
     this.groupList = [];
   }
 
-  searchContact(filter: string): void {
+  searchContact(filter: string): IContact[] {
     Validation.isStringEmpty(filter);
-    this.contactList.filter(contact => contact.containsPhrase(filter));
+    return this.contactList.filter(contact => contact.displayContactContainingPhrase(filter));
   }
 
-  addContact(contact: Contact): void {
+  addContact(contact: IContact): void {
     if(Validation.isInstanceExistsInList(contact, this.contactList)) throw new Error("Contact is already in this address book.");
     this.contactList.push(contact);      
   }
 
-  editContact(contact: Contact, key: string, value: string): void {
-    Validation.isStringEmpty(key);
-    if(key !== 'name' && key !== 'surname' && key !== 'email') throw new Error("Wrong key.");
+  editContact(contact: IContact, key: 'name' | 'surname' | 'email', value: string): void {
     Validation.isStringEmpty(value);
       
     switch(key) {
@@ -37,22 +40,22 @@ export class AddressBook {
     }
   }
 
-  deleteContact(contact: Contact): void {
+  deleteContact(contact: IContact): void {
     if(!Validation.isInstanceExistsInList(contact, this.contactList)) throw new Error("This contact does not exists in this group.");
     Validation.removeOneBySplice(this.contactList, contact.id);
   }
 
-  addGroup(group: Group): void {
+  addGroup(group: IGroup): void {
     if(Validation.isInstanceExistsInList(group, this.groupList)) throw new Error("Group is already in this address book.");
     this.groupList.push(group);
   }
 
-  editGroup(group: Group, name: string): void {
+  editGroup(group: IGroup, name: string): void {
     Validation.isStringEmpty(name);
-    
+    if(!Validation.isInstanceExistsInList(group, this.groupList)) throw new Error("Group does not exist.");
     group.modifyGroupName(name);
   }
-  deleteGroup(group: Group): void {
+  deleteGroup(group: IGroup): void {
     if(!Validation.isInstanceExistsInList(group, this.groupList)) throw new Error("This contact does not exists in this group.");
     Validation.removeOneBySplice(this.groupList, group.id);
   }

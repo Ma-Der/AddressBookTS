@@ -1,5 +1,5 @@
-import { Contact } from './Contact';
-import { Group } from './Group';
+import { IContact } from './Contact';
+import { IGroup } from './Group';
 
 export class Validation {
   constructor() {}
@@ -13,8 +13,8 @@ export class Validation {
     if(str.length === 0) throw new Error("Argument is empty, please fill this field.");
   }
 
-  static isInstanceExistsInList(instance: Contact | Group, list: Contact[] | Group[]): boolean {
-    return list.some((item: Contact | Group) => instance.id === item.id);
+  static isInstanceExistsInList(instance: IContact | IGroup, list: IContact[] | IGroup[]): boolean {
+    return list.some((item: IContact | IGroup) => instance.id === item.id);
   }
 
   static isArgumentIncludesPhrase(arg: string, phrase: string): boolean {
@@ -22,8 +22,8 @@ export class Validation {
     
   }
 
-  static removeOneBySplice(list: Contact[] | Group[], id: string): Contact[] | Group[] {
-    const index = list.findIndex((el: Contact | Group) => el.id === id);
+  static removeOneBySplice(list: IContact[] | IGroup[], id: string): IContact[] | IGroup[] {
+    const index = list.findIndex((el: IContact | IGroup) => el.id === id);
     list.splice(index, 1);
     return list;
   }

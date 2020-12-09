@@ -1,7 +1,22 @@
 import { Validation } from './Validation';
 import { v4 as uuidv4 } from 'uuid';
 
-export class Contact {
+export interface IContact {
+  id: string;
+  name: string;
+  surname: string;
+  email: string;
+  createDate: number;
+  modificationDate: number;
+  _updateModificationDate(): void;
+  displayContactContainingPhrase(phrase: string): void;
+  modifyName(name: string): void;
+  modifySurname(surname: string): void;
+  modifyEmail(email: string): void;
+  show(): void;
+}
+
+export class Contact implements IContact {
   
   id: string;
   name: string;
@@ -9,7 +24,7 @@ export class Contact {
   email: string;
   createDate: number;
   modificationDate: number;
-
+  
     constructor(name: string, surname: string, email: string) {
       Validation.isStringEmpty(name);
       Validation.isStringEmpty(surname);
@@ -24,11 +39,11 @@ export class Contact {
       
     }
 
-    private updateModificationDate(): void{
+    _updateModificationDate(): void{
       this.modificationDate = Date.now();
     }
     
-    containsPhrase(phrase: string): void {
+    displayContactContainingPhrase(phrase: string): void {
       Validation.isStringEmpty(phrase);
       if(Validation.isArgumentIncludesPhrase(this.name , phrase) || 
       Validation.isArgumentIncludesPhrase(this.surname , phrase) || 
@@ -40,17 +55,17 @@ export class Contact {
     modifyName(name: string): void {
       Validation.isStringEmpty(name);
       this.name = name;
-      this.updateModificationDate();
+      this._updateModificationDate();
     }
     modifySurname(surname: string): void {
       Validation.isStringEmpty(surname);
       this.surname = surname;
-      this.updateModificationDate();
+      this._updateModificationDate();
     }
     modifyEmail(email: string): void {
       Validation.isEmailValid(email);
       this.email = email;
-      this.updateModificationDate();
+      this._updateModificationDate();
     }
 
     show(): void {
