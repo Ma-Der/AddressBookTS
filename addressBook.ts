@@ -19,7 +19,7 @@ export class AddressBook implements IAddressBook {
 
   searchContact(filter: string): IContact[] {
     Validation.isStringEmpty(filter);
-    return this.contactList.filter(contact => contact.displayContactContainingPhrase(filter));
+    return this.contactList.filter(contact => contact.containPhrase(filter) ? contact.show() : false);
   }
 
   addContact(contact: IContact): void {

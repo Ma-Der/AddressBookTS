@@ -6,10 +6,10 @@ export interface IContact {
   name: string;
   surname: string;
   email: string;
-  createDate: number;
-  modificationDate: number;
+  createDate: Date;
+  modificationDate: Date;
   _updateModificationDate(): void;
-  displayContactContainingPhrase(phrase: string): void;
+  containPhrase(phrase: string): boolean;
   modifyName(name: string): void;
   modifySurname(surname: string): void;
   modifyEmail(email: string): void;
@@ -18,12 +18,12 @@ export interface IContact {
 
 export class Contact implements IContact {
   
-  id: string;
-  name: string;
-  surname: string;
-  email: string;
-  createDate: number;
-  modificationDate: number;
+    id: string;
+    name: string;
+    surname: string;
+    email: string;
+    createDate: Date;
+    modificationDate: Date;
   
     constructor(name: string, surname: string, email: string) {
       Validation.isStringEmpty(name);
@@ -34,22 +34,24 @@ export class Contact implements IContact {
       this.name = name;
       this.surname = surname;
       this.email = email;
-      this.createDate = Date.now();
-      this.modificationDate = Date.now();
+      this.createDate = new Date();
+      this.modificationDate = new Date();
       
     }
 
     _updateModificationDate(): void{
-      this.modificationDate = Date.now();
+      this.modificationDate = new Date();
     }
     
-    displayContactContainingPhrase(phrase: string): void {
+    containPhrase(phrase: string): boolean {
       Validation.isStringEmpty(phrase);
+
       if(Validation.isArgumentIncludesPhrase(this.name , phrase) || 
       Validation.isArgumentIncludesPhrase(this.surname , phrase) || 
       Validation.isArgumentIncludesPhrase(this.email , phrase)) {
-        return this.show();
+        return true;
       }
+      return false;
     }
 
     modifyName(name: string): void {
