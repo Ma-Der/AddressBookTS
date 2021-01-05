@@ -19,7 +19,7 @@ export class AddressBook implements IAddressBook {
 
   searchContact(filter: string): IContact[] {
     Validation.isStringEmpty(filter);
-    return this.contactList.filter(contact => contact.containPhrase(filter) ? contact.show() : false);
+    return this.contactList.filter(contact => contact.containPhrase(filter) ? contact : false);
   }
 
   addContact(contact: IContact): void {
@@ -41,7 +41,7 @@ export class AddressBook implements IAddressBook {
   }
 
   deleteContact(contact: IContact): void {
-    if(!Validation.isInstanceExistsInList(contact, this.contactList)) throw new Error("This contact does not exists in this group.");
+    if(!Validation.isInstanceExistsInList(contact, this.contactList)) throw new Error("This contact does not exists in this address book.");
     Validation.removeOneBySplice(this.contactList, contact.id);
   }
 
@@ -56,7 +56,7 @@ export class AddressBook implements IAddressBook {
     group.modifyGroupName(name);
   }
   deleteGroup(group: IGroup): void {
-    if(!Validation.isInstanceExistsInList(group, this.groupList)) throw new Error("This contact does not exists in this group.");
+    if(!Validation.isInstanceExistsInList(group, this.groupList)) throw new Error("This group does not exists in this address book.");
     Validation.removeOneBySplice(this.groupList, group.id);
   }
 }

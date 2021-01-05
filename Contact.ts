@@ -13,7 +13,6 @@ export interface IContact {
   modifyName(name: string): void;
   modifySurname(surname: string): void;
   modifyEmail(email: string): void;
-  show(): void;
 }
 
 export class Contact implements IContact {
@@ -68,17 +67,5 @@ export class Contact implements IContact {
       Validation.isEmailValid(email);
       this.email = email;
       this._updateModificationDate();
-    }
-
-    show(): void {
-      console.log(`
-      Contact: 
-          id: ${this.id}
-          name: ${this.name}
-          surname: ${this.surname}
-          createDate: ${this.createDate}
-          modificationDate: ${this.modificationDate}
----------------------------------------------------------
-      `);
     }
   }
