@@ -28,7 +28,7 @@ const man = new Contact(
   
   groupOne.addContact(man1);
   
-  groupOne.deleteContact(man1);
+  //groupOne.deleteContact(man);
   
   const addressOne = new AddressBook();
   
@@ -37,12 +37,7 @@ const man = new Contact(
   addressOne.addContact(man2);
   //addressOne.editContact(man, 'surname', 'Trzeciak');
   addressOne.addGroup(groupOne);
-  //console.log(addressOne);
+  
   addressOne.deleteContact(man1);
-  
-  
-  addressOne.searchContact('har');
-  //addressOne.editGroup(groupOne, 'Not so best at all.');
-  //addressOne.deleteGroup(groupOne);
   console.log(addressOne);
   

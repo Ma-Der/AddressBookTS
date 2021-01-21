@@ -1,6 +1,6 @@
 import { Validation } from './Validation';
 import { IContact } from './Contact';
-import { IGroup } from './Group';
+import { Group, IGroup } from './Group';
 
 interface IAddressBook {
   contactList: IContact[];
